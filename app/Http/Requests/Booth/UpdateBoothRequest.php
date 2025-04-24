@@ -22,10 +22,9 @@ class UpdateBoothRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'       => 'nullable|string',
-            'description' => 'nullable|string',
-            'images'      => 'nullable|array|max:4',
-            'images.*'    => 'nullable|mimes:jpg,png,jpeg'
+            'images'         => 'required|array|max:4',
+            'images.*.id'    => 'required|integer|exists:media,id',
+            'images.*.image' => 'required|mimes:jpg,png,jpeg'
         ];
     }
 }

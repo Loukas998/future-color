@@ -22,10 +22,9 @@ class CreateBoothRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'       => 'required|string',
-            'description' => 'required|string',
-            'images'      => 'required|array|max:4',
-            'images.*'    => 'required|mimes:jpg,png,jpeg'
+            'images'         => 'required|array|max:4',
+            'images.*.id'    => 'required|integer|exists:media,id',
+            'images.*.image' => 'required|mimes:jpg,png,jpeg'
         ];
     }
 }

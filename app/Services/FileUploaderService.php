@@ -36,4 +36,12 @@ class FileUploaderService
         $media->delete();
         $this->uploadSingleFile($model, $file, $collectionName);
     }
+
+    public function replaceMedia(Model $model, UploadedFile $newFile, int $mediaId, string $collectionName = 'default')
+    {
+        $media = $model->getMedia($collectionName)->where('id', $mediaId)->first();
+        dd($collectionName, $newFile, $mediaId);
+        $media->delete();
+        $this->uploadSingleFile($model, $newFile, $collectionName);
+    }
 }
