@@ -8,16 +8,13 @@ use App\Http\Requests\Booth\UpdateBoothRequest;
 use App\Http\Resources\Booth\BoothResource;
 use App\Models\Booth;
 use App\Services\FileUploaderService;
-use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Support\Facades\Storage;
 
 class BoothController extends Controller
 {
     protected $fileUploader;
     public function __construct(FileUploaderService $fileUploader)
     {
-        $this->fileUploader = $fileUploader;    
+        $this->fileUploader = $fileUploader;
     }
 
 
@@ -32,14 +29,13 @@ class BoothController extends Controller
 
     public function store(CreateBoothRequest $request)
     {
-        $data = $request->validated();        
+        $data = $request->validated();
         $booth = Booth::create([
             'title'       => $data['title'],
             'description' => $data['description'],
         ]);
 
-        if($request->hasFile('images'))
-        {
+        if ($request->hasFile('images')) {
             $this->fileUploader->uploadMultipleFiles($booth, $request['images'], 'images');
         }
 
@@ -65,8 +61,7 @@ class BoothController extends Controller
             'description' => $data['description'],
         ]);
 
-        if($request->hasFile('images'))
-        {
+        if ($request->hasFile('images')) {
             $this->fileUploader->clearCollection($booth, 'images');
             $this->fileUploader->uploadMultipleFiles($booth, $request['images'], 'images');
         }

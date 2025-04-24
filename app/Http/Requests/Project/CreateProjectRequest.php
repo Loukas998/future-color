@@ -22,12 +22,13 @@ class CreateProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_id'     => 'required|string',
+            'category_id'     => 'required|string|exists:categories,id',
             'title'           => 'required|string',
             'description_one' => 'required|string',
+            'description_two' => 'required|string',
             'deadline'        => 'required|string',
             'location'        => 'required|string',
-            'images'          => 'required|array|max:3',
+            'images'          => 'required|array|max:3|min:3',
             'images.*'        => 'required|mimes:jpg,png,jpeg',
         ];
     }

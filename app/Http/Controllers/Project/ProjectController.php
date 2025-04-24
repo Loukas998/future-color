@@ -15,17 +15,15 @@ class ProjectController extends Controller
     protected $fileUploader;
     public function __construct(FileUploaderService $fileUploader)
     {
-        $this->fileUploader = $fileUploader; 
-   
+        $this->fileUploader = $fileUploader;
     }
 
     public function index()
     {
-        if(request()->query('category_id') !== null)
-        {
+        if (request()->query('category_id') !== null) {
             $projects = Project::where('category_id', request()->query('category_id'))->latest()->paginate(10);
             return response()->json([
-               'message' => 'Projects retrieved successfully',
+                'message' => 'Projects retrieved successfully',
                 'data' => ProjectResource::collection($projects)
             ], 200);
         }
@@ -43,12 +41,12 @@ class ProjectController extends Controller
             'category_id'     => $data['category_id'],
             'title'           => $data['title'],
             'description_one' => $data['description_one'],
+            'description_two' => $data['description_two'],
             'deadline'        => $data['deadline'],
             'location'        => $data['location'],
         ]);
 
-        if($request->hasFile('images'))
-        {
+        if ($request->hasFile('images')) {
             $this->fileUploader->uploadMultipleFiles($project, $request['images'], 'images');
         }
 
@@ -73,15 +71,10 @@ class ProjectController extends Controller
             'category_id'     => $data['category_id'],
             'title'           => $data['title'],
             'description_one' => $data['description_one'],
+            'description_two' => $data['description_two'],
             'deadline'        => $data['deadline'],
             'location'        => $data['location'],
         ]);
-
-        if($request->hasFile('images'))
-        {
-            $this->fileUploader->clearCollection($project, 'images');
-            $this->fileUploader->uploadMultipleFiles($project, $request['images'], 'images');
-        }
 
         return response()->json([
             'message' => 'Project updated successfully',
