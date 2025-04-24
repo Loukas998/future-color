@@ -43,6 +43,7 @@ class ProjectController extends Controller
             'category_id'     => $data['category_id'],
             'title'           => $data['title'],
             'description_one' => $data['description_one'],
+            'description_two' => $data['description_two'],
             'deadline'        => $data['deadline'],
             'location'        => $data['location'],
         ]);
@@ -73,6 +74,7 @@ class ProjectController extends Controller
             'category_id'     => $data['category_id'],
             'title'           => $data['title'],
             'description_one' => $data['description_one'],
+            'description_two' => $data['description_two'],
             'deadline'        => $data['deadline'],
             'location'        => $data['location'],
         ]);

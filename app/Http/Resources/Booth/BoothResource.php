@@ -16,8 +16,6 @@ class BoothResource extends JsonResource
     {
         return [
             'id'          => $this->id, 
-            'title'       => $this->title,
-            'description' => $this->description,
             'images'      => $this->getMedia('images')->map(function($media) {
                 return [
                     'id'    => $media->id,

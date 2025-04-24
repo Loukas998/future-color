@@ -25,6 +25,7 @@ class CreateProjectRequest extends FormRequest
             'category_id'     => 'required|string',
             'title'           => 'required|string',
             'description_one' => 'required|string',
+            'description_two' => 'required|string',
             'deadline'        => 'required|string',
             'location'        => 'required|string',
             'images'          => 'required|array|max:3',

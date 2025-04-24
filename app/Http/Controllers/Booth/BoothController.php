@@ -33,10 +33,7 @@ class BoothController extends Controller
     public function store(CreateBoothRequest $request)
     {
         $data = $request->validated();        
-        $booth = Booth::create([
-            'title'       => $data['title'],
-            'description' => $data['description'],
-        ]);
+        $booth = Booth::create();
 
         if($request->hasFile('images'))
         {
@@ -60,15 +57,13 @@ class BoothController extends Controller
     public function update(UpdateBoothRequest $request, Booth $booth)
     {
         $data = $request->validated();
-        $booth->update([
-            'title'       => $data['title'],
-            'description' => $data['description'],
-        ]);
 
-        if($request->hasFile('images'))
+        if ($request->has('images'))
         {
-            $this->fileUploader->clearCollection($booth, 'images');
-            $this->fileUploader->uploadMultipleFiles($booth, $request['images'], 'images');
+            foreach($request['images'] as $newImage)
+            {
+                $this->fileUploader->replaceFile($booth, $newImage['image'], $newImage['id'], 'images');
+            }
         }
 
         return response()->json([
@@ -80,6 +75,7 @@ class BoothController extends Controller
     public function destroy(Booth $booth)
     {
         $booth->delete();
+        $this->fileUploader->clearCollection($booth, 'images');
         return response()->json([
             'message' => 'Booth deleted successfully'
         ], 200);

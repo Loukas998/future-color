@@ -25,6 +25,7 @@ class UpdateProjectRequest extends FormRequest
             'category_id'     => 'nullable|string',
             'title'           => 'nullable|string',
             'description_one' => 'nullable|string',
+            'description_two' => 'required|string',
             'deadline'        => 'nullable|string',
             'location'        => 'nullable|string',
             'images'          => 'nullable|array|max:3',
